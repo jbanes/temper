@@ -2,9 +2,9 @@
 # Gilead Kutnick - Exophase
 
 # Global definitions
-AS        = /opt/rs97-toolchain/bin/mipsel-linux-as
-CC        = /opt/rs97-toolchain/bin/mipsel-linux-gcc
-STRIP     = /opt/rs97-toolchain/bin/mipsel-linux-strip --strip-all --remove-section=.comment  --remove-section=.note
+AS        = mipsel-linux-as
+CC        = mipsel-linux-gcc
+STRIP     = mipsel-linux-strip --strip-all --remove-section=.comment  --remove-section=.note
 
 OBJS      = main.o cpu.o memory.o irq.o io.o video.o timer.o psg.o disasm.o    \
             screen.o event.o audio.o menu.o debug.o cd.o adpcm.o netplay.o     \

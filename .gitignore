@@ -4,6 +4,8 @@
 *.txt
 *.pce
 SDL/opk/temper
+SDL/temper.ipk
 SDL/temper.opk
 SDL/temper
+SDL/nbproject
 *.ipk
