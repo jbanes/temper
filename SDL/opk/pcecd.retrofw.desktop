@@ -1,0 +1,11 @@
+[Desktop Entry]
+Name=PC Engine CD
+Comment=PC-Engine CD emulation
+Exec=temper
+Terminal=false
+Type=Game
+StartupNotify=true
+Icon=temper
+Categories=emulators.systems;
+X-OD-Selector=/home/retrofw/roms/pcecd
+X-OD-Filter=.bin,.cue

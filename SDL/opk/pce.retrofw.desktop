@@ -1,0 +1,11 @@
+[Desktop Entry]
+Name=PC Engine
+Comment=PC-Engine emulator
+Exec=temper
+Terminal=false
+Type=Game
+StartupNotify=true
+Icon=temper
+Categories=emulators.systems;
+X-OD-Selector=/home/retrofw/roms/pce
+X-OD-Filter=.pce,.zip
