@@ -114,6 +114,11 @@ u32 joy_hat_map(u32 hat_value)
   }
 }
 
+#ifdef RS97_BUILD
+int select_pressed = 0;
+int start_pressed = 0;
+#endif
+
 u32 update_input(event_input_struct *event_input)
 {
   SDL_Event event;
@@ -125,6 +130,17 @@ u32 update_input(event_input_struct *event_input)
   
   if(SDL_PollEvent(&event))
   {
+#ifdef RS97_BUILD
+    if(event.key.keysym.sym == SDLK_ESCAPE) select_pressed = (event.type == SDL_KEYDOWN);
+    if(event.key.keysym.sym == SDLK_RETURN) start_pressed = (event.type == SDL_KEYDOWN);
+    
+    if(select_pressed && start_pressed) 
+    {
+        select_pressed = 0;
+        start_pressed = 0;
+        event.key.keysym.sym = SDLK_END;
+    }
+#endif
     switch(event.type)
     {
       case SDL_QUIT:
