@@ -141,18 +141,41 @@ u32 joy_hat_map(u32 hat_value)
   }
 }
 
+int horiz_axis = 0;
+int vert_axis = 0;
+
 u32 joy_axis_map_action(u32 axis, s32 value)
 {
   if(axis & 1)
   {
-    if(value < 0) return HAT_STATUS_UP;
-    else return HAT_STATUS_DOWN;
+    if(value < 0) vert_axis = -1;
+    else if(value > 0) vert_axis = 1;
+    else vert_axis = 0;
   }
   else
   {
-    if(value < 0) return HAT_STATUS_LEFT;
-    else return HAT_STATUS_RIGHT;
+    if(value < 0) horiz_axis = -1;
+    else if(value > 0) horiz_axis = 1;
+    else horiz_axis = 0;
   }
+  
+  if(vert_axis < 0)
+  {
+    if(horiz_axis < 0) return HAT_STATUS_UP_LEFT;
+    else if(horiz_axis > 0) return HAT_STATUS_UP_RIGHT;
+    else return HAT_STATUS_UP;
+  }
+  else if(vert_axis > 0)
+  {
+    if(horiz_axis < 0) return HAT_STATUS_DOWN_LEFT;
+    else if(horiz_axis > 0) return HAT_STATUS_DOWN_RIGHT;
+    else return HAT_STATUS_DOWN;
+  }
+  
+  if(horiz_axis < 0) return HAT_STATUS_LEFT;
+  if(horiz_axis > 0) return HAT_STATUS_RIGHT;
+  
+  return HAT_STATUS_CENTER;
 }
 
 #ifdef RS97_BUILD
@@ -282,15 +305,7 @@ u32 update_input(event_input_struct *event_input)
         break;
 
       case SDL_JOYAXISMOTION:
-        if(event.jaxis.value != 0)
-        {
-          event_input->hat_status = joy_axis_map_action(event.jaxis.axis, event.jaxis.value);
-        }
-        else
-        {
-          event_input->hat_status = HAT_STATUS_CENTER;
-        }
-        
+        event_input->hat_status = joy_axis_map_action(event.jaxis.axis, event.jaxis.value);
         break;
     }
   }
