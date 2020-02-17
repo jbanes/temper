@@ -56,7 +56,7 @@ config_struct config =
   SCALE_1x,          // u32 scale_factor;
   0,                 // u32 fast_cd_access;
   0,                 // u32 fast_cd_load;
-  0,                 // u32 scale_width;
+  1,                 // u32 scale_width;
   0,                 // u32 unlimit_sprites
   0,                 // u32 compatibility_mode
 
