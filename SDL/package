@@ -45,3 +45,8 @@ ar rv ../temper.ipk control.tar.gz data.tar.gz debian-binary
 
 cd ..
 rm -r ipkg
+
+# OPKG creation
+cp temper opk/
+mksquashfs opk temper.opk -no-xattrs -noappend
+rm opk/temper

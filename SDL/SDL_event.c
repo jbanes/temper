@@ -78,6 +78,33 @@ u32 key_map(u32 keys)
 
 u32 joy_button_map(u32 button)
 {
+  switch(button)
+  {
+    case 2:
+      return CONFIG_BUTTON_I;
+
+    case 1:
+      return CONFIG_BUTTON_II;
+
+    case 5:
+      return CONFIG_BUTTON_III;
+
+    case 3:
+      return CONFIG_BUTTON_IV;
+
+    case 0:
+      return CONFIG_BUTTON_V;
+
+    case 4:
+      return CONFIG_BUTTON_VI;
+
+    case 9:
+      return CONFIG_BUTTON_RUN;
+
+    case 8:
+      return CONFIG_BUTTON_SELECT;
+  }
+
   return config.pad[button + 4];
 }
 
@@ -111,6 +138,20 @@ u32 joy_hat_map(u32 hat_value)
 
     default:
       return HAT_STATUS_CENTER;
+  }
+}
+
+u32 joy_axis_map_action(u32 axis, s32 value)
+{
+  if(axis & 1)
+  {
+    if(value < 0) return HAT_STATUS_UP;
+    else return HAT_STATUS_DOWN;
+  }
+  else
+  {
+    if(value < 0) return HAT_STATUS_LEFT;
+    else return HAT_STATUS_RIGHT;
   }
 }
 
@@ -239,6 +280,18 @@ u32 update_input(event_input_struct *event_input)
       case SDL_JOYHATMOTION:
         event_input->hat_status = joy_hat_map(event.jhat.value);
         break;
+
+      case SDL_JOYAXISMOTION:
+        if(event.jaxis.value != 0)
+        {
+          event_input->hat_status = joy_axis_map_action(event.jaxis.axis, event.jaxis.value);
+        }
+        else
+        {
+          event_input->hat_status = HAT_STATUS_CENTER;
+        }
+        
+        break;
     }
   }
   else
@@ -271,7 +324,7 @@ gui_action_type joy_map_gui_action(u32 button)
     case 5:
       return CURSOR_PAGE_DOWN;
     default:
-		return CURSOR_NONE;
+      return CURSOR_NONE;
   }
 }
 
