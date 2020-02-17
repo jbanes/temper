@@ -470,6 +470,13 @@ void get_gui_input(gui_input_struct *gui_input)
             joy_axis_map_set_gui_action(event.jaxis.axis, event.jaxis.value);
           gui_actions[gui_action] = 1;
         }
+        else
+        {
+            gui_actions[CURSOR_UP] = 0;
+            gui_actions[CURSOR_DOWN] = 0;
+            gui_actions[CURSOR_LEFT] = 0;
+            gui_actions[CURSOR_RIGHT] = 0;
+        }
         
         break;
 
